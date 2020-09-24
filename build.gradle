@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+application {
+    mainClassName = "Network.Main.Main"
+}
+
+dependencies {
+    // Jersey for web application support (JAX-RS)
+    compile 'org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.28'
+    compile 'org.glassfish.jersey.media:jersey-media-sse:2.28'
+    compile 'org.glassfish.jersey.inject:jersey-hk2:2.28'
+    compile 'javax.activation:activation:1.1.1'
+    compile 'javax.xml:jaxb-api:2.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    compile 'org.json:json:20171018'
+    testImplementation 'junit:junit:4.12'
+    testCompile 'junit:junit:4.12'
+}
+
+repositories {
+    mavenCentral()
+}
+
+wrapper {
+    gradleVersion = '5.2.1'
+}

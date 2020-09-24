@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        Connect6
+    </title>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <meta charset="UTF-8">
+    <title>Game Client</title>
+    <style>
+        html, body 	{ font-family:			Lucida Grande;
+			          font-size:			15px;
+			          color:				white;
+			          padding:				5px;
+			          margin:				2px;
+			          background-color:		#E8C49B;
+        }
+
+        header		{ text-align:			center;
+                      font-family:			"Alegreya Sans SC";
+                      font-weight:			bold;
+                      background-image:     url("https://www.chathamartscouncil.org/wp-content/uploads/2016/09/wood-background02.jpg");
+                      color:				white;
+                      font-size:			100px;
+                      border-radius:		5px;
+                      padding:				30px 20px 30px 20px;
+                      margin-bottom:		1px;
+                      text-shadow:			1px 1px 4px #000000; }
+
+        nav			{ background-color:		white;
+                      border-radius:		9px;
+                      padding:				10px 10px 10px 10px;
+                      margin-bottom:		1px;
+                      text-align:          right;
+                      color:               black;
+                      width:               99%;
+                      }
+
+
+        footer      { color:                black;
+                      position:             fixed;
+                      bottom:               0;
+                      width:                100%;
+                      height:               60px;
+                      text-align:           center;
+                      clear:                both;
+                      background-color:     white;
+                      border-radius:        9px;
+
+                    }
+
+        form		{ text-align:           left;
+                      vertical-align:       middle;
+                    }
+        a           { color: inherit; }
+        table       {
+                        float: top;
+                        border: 1px solid black;
+                        background-color: antiquewhite;
+                        color: black;
+                    }
+        td          {
+                        border: 1px solid black;
+                        background-color: antiquewhite;
+                        color: black;
+                    }
+
+        gameBoard-canvas     { padding: 0;
+                            margin: auto;
+                            display: block;
+                            float: right;}
+
+        leaderboard-canvas  { margin: 0;
+                              overflow: hidden;
+                              background-color: white;
+                              width: 100%;
+                              height: 100%; }
+
+        .btn        { border:                 none;
+                      background-color:       inherit;
+                      padding:                7px 14px;
+                      font-size:              16px;
+                      cursor:                 pointer;
+                      display:                inline-block;
+                    }
+
+        .ngbutton{color: #A42828;}
+        .ngbutton:hover{background-color: #A42828;
+                           color: white;}
+
+        .jgbutton{color: #C33DCD;}
+        .jgbutton:hover{background-color: #C33DCD;
+                           color: white;}
+
+        .ipbutton{color: #ED9237;}
+        .ipbutton:hover{background-color: #ED9237;
+                           color: white;}
+
+        .leaderboard {color: green; }
+        .leaderboard:hover{background-color: #4CAF50;
+                           color: white;}
+
+        .replayButton {
+            float: left;
+            color: white;
+            background-color: red;
+            border: 1px solid transparent;
+            font-size: 13px;
+        }
+
+        .moveButton {
+            float: bottom;
+            color: white;
+            background-color: red;
+            border: 1px solid transparent;
+            font-size: 13px;
+        }
+
+        .inpgames {color: red; }
+        .inpgames:hover{background-color: #A42828;
+                           color: white;}
+
+        .compgames {color: dodgerblue;}
+        .compgames:hover{background-color: #2196F3;
+                         color: white;}
+
+        .connect6image{ height: 51%;
+                        width: 51%;
+                       }
+        article		{font-family:			sans-serif;
+                     border-radius:		    20px;
+                     width:                31.5%;
+                     color:				    white;
+                     padding:				10px 0px 10px 00px;
+                     bottom:              50px;}
+
+        article.col	{
+		        	 height:				250px;
+			        border:				    thin solid black;
+			        padding:				10px 10px 10px 10px;
+			        float:                 left;
+		        	color:                 black;
+			        text-align:            center;
+		        	background-color:      white;
+			  }
+
+        article.replay	{
+            width: 400px;
+            border:				    thin solid black;
+            padding:			    10px 10px 10px 10px;
+            float:                 left;
+            color:                 black;
+            text-align:            center;
+            background-color:      white;
+        }
+
+        .popcornimage{height: 60%; }
+
+        .arrowimage{ height: 52%;
+                 width:  52%;}
+
+        .githublink{float: left;
+                    padding-left: 10px;
+                    padding-top: 4px;
+                    padding-bottom: 7px;}
+
+    </style>
+</head>
+
+<body>
+
+<header> <a href="./client">Welcome to Connect6</a> </header>
+
+    <hr/>
+
+    <nav id="nav">
+        <form>
+            Username:
+            <input type ="text" username="name" id="uname">
+            <i class="fa fa-user-plus" aria-hidden="true"></i><br><br>
+            <input type ="submit" value="Create Account" id ="createUserButton">
+            <span id="create-user-area"></span>
+        </form>
+
+
+        <span id="leaderboard-response-area"></span>
+
+        <button class="btn leaderboard" id ="leaderboardButton">
+            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+            Leaderboard</button>
+        <!--<button class="btn inpgames" id = "inprogressButton">In Progress Games</button> -->
+        <button class="btn compgames" id = "completedButton">
+            <i class="fa fa-check-square" aria-hidden="true"></i>
+            Completed Games</button>
+    </nav>
+
+    <hr><br>
+
+
+    <article class="col" id="art1">
+        <br/>
+        <img src = "https://bit.ly/2VUTWe2"
+             alt = "Connect6" class = "connect6image"/>
+        <br/>
+
+        <b>Challenge someone to a one-on-one match!</b>
+        <br/>
+        Your username: <input type ="text" username="name" id="user1">
+        <br/>
+        Opponent's username: <input type ="text" username="name" id="user2">
+        <br/>
+        Play a game of classic Connect6 on a 19 x 19 board.
+        <br/>
+        Private Game?
+        <input type="checkbox" id="priv" value="true">
+        <button id="createNewGameButton" class="btn ngbutton">
+            <i class="fa fa-play" aria-hidden="true"></i>
+            Create a new game
+        </button>
+        <br/><br/>
+    </article>
+
+    <article class="col" id="art2">
+        <br/>
+        <img src = "http://worldartsme.com/images/curved-arrow-clipart-1.jpg"
+             alt = "Arrow" class = "arrowimage"/>
+        <br/>
+        <b>Join a game!</b>
+        <br/>
+        Your username: <input type ="text" username="name" id="joinName" placeholder="">
+        <br/>
+        Rejoin any in-progress matches you are in.
+        <br/><br/>
+        <button type="submit" class="btn jgbutton" id="joinGameButton" >
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            Join
+        </button>
+
+
+        <br/><br/>
+    </article>
+
+    <article class="col" id="art3">
+        <br/>
+        <img src = "http://clipart-library.com/data_images/209793.png"
+             alt = "Popcorn" class = "popcornimage"/>
+        <br/>
+        <b>Watch someone else play!</b>
+        <br/>
+        View live games as they're being played.
+        <br/><br>
+        <button class="btn ipbutton" id="inProgressButton" >
+            <i class="fa fa-binoculars" aria-hidden="true"></i>
+            Watch</button>
+
+        <br/><br/>
+    </article>
+
+    <canvas id="gameBoard-canvas"></canvas>
+    <canvas id="leaderBoard-canvas"></canvas>
+    <canvas id="myGames-canvas"></canvas>
+
+    <button class="btn replayButton" id = "replayButton">
+    <i class="fa fa-replay" aria-hidden="true"></i>
+    See Game Replay</button>
+
+    <article class="replay" id="replayMovesArticle">
+        <div id="moveButtons">
+            <button class="btn moveButton" id = "previousMoveButton">
+                <i class="fa fa-replay" aria-hidden="true"></i>
+                Previous Move</button>
+
+            <button class="btn moveButton" id = "nextMoveButton">
+                <i class="fa fa-replay" aria-hidden="true"></i>
+                Next Move</button>
+        </div> <br>
+        <small id="currentplayermove"></small>
+
+        <table id="movesTable">
+            <tr>
+                <th>Move Number</th>
+                <th>Player Name</th>
+                <th>X-Coordinate</th>
+                <th>Y-Coordinate</th>
+            </tr>
+        </table>
+    </article>
+
+    <footer id="footer">
+        Cunning Coders™ 👀👌🔥🔥🔥
+        <br>
+        <a href="https://gitlab.cs.plu.edu/390-2019-cunningcoders/gameproject" class="githublink">
+            <i class="fa fa-git" aria-hidden="true"></i></a>
+        <i>Members:</i> Sam Driver, Walker LaVoy, Nick Sundvall, Michael Garcia, San Nge
+    </footer>
+
+    <!-- Load the javascript for the client application -->
+    <script src="/client/client.js"></script>
+</body>
+
+</html>
